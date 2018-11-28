@@ -24,7 +24,7 @@
 * The state information(X) is supplied to the C1 as props
 
 
-
+* Redux is a library that implements Flux pattern
 
 
 
