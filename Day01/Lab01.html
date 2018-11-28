@@ -1,0 +1,83 @@
+<html>
+	<head>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.0.1/redux.js"></script>
+			
+	</head>	
+	<body>
+		<input type="text" id="number" placeholder="Number"/> <br/>
+		<button id="squareButton">Square</button>
+		<button id="cubeButton">Cube</button>
+		<button id="isEvenButton">Is Even?</button>
+		<h3 id="message"></h3>
+		<hr/>
+		<button id="historyButton">History</button>
+		<div id="history"></div>
+		<script>
+			const initialState = {
+				number: '',
+				result: '',
+				mathHistory: []
+			}
+			const reducers = (state = initialState, action) => {
+				let number = action.payload ? parseInt(action.payload) : '';
+				switch (action.type) {
+				case 'SQUARE':
+					let square = number * number;
+					let squareState = {...state};
+					squareState.mathHistory = JSON.parse(JSON.stringify(squareState.mathHistory));
+					squareState.mathHistory.push({ number, operation: 'Square'});
+					squareState.result = `Square of ${number} is ${square}`;
+					return squareState;
+				case 'CUBE':
+					let cube = number * number * number;
+					let cubeState = {...state};
+					cubeState.mathHistory = JSON.parse(JSON.stringify(cubeState.mathHistory));
+					cubeState.mathHistory.push({ number, operation: 'CUBE'});
+					cubeState.result = `Cube of ${number} is ${cube}`;	 
+					return cubeState;
+				case 'IS_EVEN':
+					let isEven = number % 2 == 0 ? true : false;
+					let isEvenState = {...state};
+					isEvenState.mathHistory = JSON.parse(JSON.stringify(isEvenState.mathHistory));
+					isEvenState.mathHistory.push({ number, operation: 'IS EVEN'});
+					isEvenState.result = `Is ${number} even?  ${isEven}`;	
+					return isEvenState;
+				case 'HISTORY':
+					let historyState = {...state};
+					historyState.result = '';
+					historyState.mathHistory = JSON.parse(JSON.stringify(historyState.mathHistory));
+					return historyState;	
+				default:
+					return state;
+				}
+			}
+			let { createStore } = Redux;
+			let store = createStore(reducers);
+			
+			
+			document.getElementById("squareButton").onclick = () => invoke("SQUARE");
+			document.getElementById("cubeButton").onclick = () => invoke("CUBE");
+			document.getElementById("isEvenButton").onclick = () => invoke("IS_EVEN");
+			document.getElementById("historyButton").onclick = () => {
+				store.dispatch({ type: "HISTORY"});
+			}
+			
+			let invoke = (type) => store.dispatch({type, payload: document.getElementById("number").value})
+			
+			
+			store.subscribe(() => {
+				let { result, mathHistory } = store.getState();
+				document.getElementById("message").innerHTML = result;
+				
+				if(result == '' && mathHistory.length > 0) {
+					let table = "<table><tbody>";
+					mathHistory.forEach(it => {
+						table += `<tr><td>${it.number}</td><td>${it.operation}</td></tr>`;
+					});
+					table += "</tbody></table>";
+					document.getElementById("history").innerHTML = table;
+				}
+			});
+		</script>	
+	</body>	
+</html>
