@@ -26,6 +26,15 @@
 
 * Redux is a library that implements Flux pattern
 
+## With React
+
+* sudo npm install -g create-react-app
+* create-react-app day01withredux
+
+* Navigate to day01withredux folder
+* sudo npm install --save redux react-redux
+
+* yarn start
 
 
 

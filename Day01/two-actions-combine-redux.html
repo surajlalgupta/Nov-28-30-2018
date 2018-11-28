@@ -39,6 +39,9 @@
 				currentTemperature: currentTemperatureReducer
 			});
 			let store = createStore(reducers);
+			console.log("Initial", store.getState());
+			
+			
 			
 			document.getElementById("timeButton").onclick = () => {
 				store.dispatch({type: "GET_TIME"});
