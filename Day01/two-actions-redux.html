@@ -16,6 +16,7 @@
 			const reducers = (state= initialState, action) => {
 				switch (action.type) {
 				case "GET_TIME":
+					let data = action.payload;
 					let newStateWithTime = {...state};
 					newStateWithTime.currentTime = new Date().toString();
 					return newStateWithTime;
@@ -31,11 +32,11 @@
 			let store = createStore(reducers);
 			
 			document.getElementById("timeButton").onclick = () => {
-				store.dispatch({type: "GET_TIME"});
+				store.dispatch({type: "GET_TIME", payload: "data"});
 			}
 			
 			document.getElementById("temperatureButton").onclick = () => {
-				store.dispatch({type: "GET_TEMPERATURE"});
+				store.dispatch({type: "GET_TEMPERATURE", payload: "data"});
 			}
 			
 			store.subscribe(() => {
