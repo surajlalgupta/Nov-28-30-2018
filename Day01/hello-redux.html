@@ -4,5 +4,33 @@
 			
 	</head>	
 	<body>
+		<button id="button">Click</button>
+		<h3 id="message"></h3>
+		<script>
+			let initialState = {
+				currentTime: ''	
+			};
+			
+			const reducer = (state=initialState, action) => {
+				console.log(state, action);
+				let now = new Date().toString();
+				let newState = Object.assign({}, state);
+				newState.currentTime = now;
+				return newState;
+			}
+			let { createStore } = Redux;
+			let store = createStore(reducer);
+				
+			document.getElementById("button").onclick = () => {
+				store.dispatch({type: "GET_TIME"});		
+			};
+			
+			//Non-reactjs
+			store.subscribe(() => {
+				let { currentTime } = store.getState();
+				document.getElementById("message").innerHTML = currentTime;
+			});
+			
+		</script>	
 	</body>	
 </html>

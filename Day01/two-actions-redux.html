@@ -1,0 +1,54 @@
+<html>
+	<head>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.0.1/redux.js"></script>
+			
+	</head>	
+	<body>
+		<button id="timeButton">Get Time</button>
+		<button id="temperatureButton">Get Temperature</button>
+		<h3 id="timeMessage"></h3>
+		<h3 id="temperatureMessage"></h3>
+		<script>
+			let initialState = {
+				currentTime: '',
+				currentTemperature: ''	
+			};
+			const reducers = (state= initialState, action) => {
+				switch (action.type) {
+				case "GET_TIME":
+					let newStateWithTime = {...state};
+					newStateWithTime.currentTime = new Date().toString();
+					return newStateWithTime;
+				case "GET_TEMPERATURE":	
+					let newStateWithTemperature = {...state};
+					newStateWithTemperature.currentTemperature = Math.random() * 30;
+					return newStateWithTemperature;
+				default:
+					return state;
+				}
+			}
+			let { createStore } = Redux;
+			let store = createStore(reducers);
+			
+			document.getElementById("timeButton").onclick = () => {
+				store.dispatch({type: "GET_TIME"});
+			}
+			
+			document.getElementById("temperatureButton").onclick = () => {
+				store.dispatch({type: "GET_TEMPERATURE"});
+			}
+			
+			store.subscribe(() => {
+				let { currentTime, currentTemperature }	= store.getState();
+				document.getElementById("timeMessage").innerHTML = currentTime;
+				document.getElementById("temperatureMessage").innerHTML = currentTemperature;
+			});
+			
+			
+			
+			
+			
+		
+		</script>	
+	</body>	
+</html>
