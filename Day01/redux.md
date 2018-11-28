@@ -1,4 +1,4 @@
-#Notes on Redux
+# Notes on Redux
 
 * Flux design pattern
 
