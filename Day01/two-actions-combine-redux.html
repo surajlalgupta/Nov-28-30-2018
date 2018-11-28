@@ -1,0 +1,64 @@
+<html>
+	<head>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.0.1/redux.js"></script>
+			
+	</head>	
+	<body>
+		<button id="timeButton">Get Time</button>
+		<button id="temperatureButton">Get Temperature</button>
+		<h3 id="timeMessage"></h3>
+		<h3 id="temperatureMessage"></h3>
+		<script>
+			const ACTIONS = {
+				GET_TIME: "GET_TIME",
+				GET_TEMPERATURE: "GET_TEMPERATURE"
+			} 
+			
+			let currentTimeReducer = (state = '', action) => {
+				switch (action.type) {
+				case ACTIONS.GET_TIME:
+					return new Date().toString();	
+				default:
+					return state;
+				}
+			}
+			
+			let currentTemperatureReducer = (state = '', action) => {
+				switch (action.type) {
+				case ACTIONS.GET_TEMPERATURE:
+					return Math.random() * 100;	
+				default:
+					return state;	
+				}
+			}
+			
+			
+			let { createStore, combineReducers } = Redux;
+			let reducers = combineReducers({
+				currentTime: currentTimeReducer,
+				currentTemperature: currentTemperatureReducer
+			});
+			let store = createStore(reducers);
+			
+			document.getElementById("timeButton").onclick = () => {
+				store.dispatch({type: "GET_TIME"});
+			}
+			
+			document.getElementById("temperatureButton").onclick = () => {
+				store.dispatch({type: "GET_TEMPERATURE"});
+			}
+			
+			store.subscribe(() => {
+				let { currentTime, currentTemperature }	= store.getState();
+				document.getElementById("timeMessage").innerHTML = currentTime;
+				document.getElementById("temperatureMessage").innerHTML = currentTemperature;
+			});
+			
+			
+			
+			
+			
+		
+		</script>	
+	</body>	
+</html>
