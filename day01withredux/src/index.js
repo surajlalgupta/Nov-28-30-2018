@@ -3,10 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import {createStore} from 'redux';
+
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
 
 const initialState = {
-	currentTime: 'Click the button to get the current time'
+	currentTime: '',
+	currentTemperature: ''
 }
 
 const reducer = (state = initialState, action) => {
@@ -15,6 +18,10 @@ const reducer = (state = initialState, action) => {
 		return Object.assign({}, state, {
 			currentTime: new Date().toString()
 		});
+	case "GET_TEMPERATURE":
+		return Object.assign({}, state, {
+			currentTemperature: Math.random() * 30
+		});	
 	default:
 		return state;
 	}
@@ -23,6 +30,9 @@ const reducer = (state = initialState, action) => {
 let store = createStore(reducer);
 
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<Provider store={store}> 
+					<App /> 
+				</Provider>, 
+	document.getElementById('root'));
 
 serviceWorker.unregister();
