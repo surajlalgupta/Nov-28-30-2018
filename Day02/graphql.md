@@ -38,7 +38,9 @@
 * sudo npm install --save graphql
 
 
+## Setting up GraphQL Server
 
+* Install express, graphql, express-graphql, cors
 
 
 
