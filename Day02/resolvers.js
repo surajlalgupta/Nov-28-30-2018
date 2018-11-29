@@ -1,8 +1,8 @@
 let db = {
 	authors: [
-		{ id: "a101", name: "Sam" },
-		{ id: "a102", name: "Ram" },
-		{ id: "a103", name: "John" }
+		{ id: "a101", name: "Sam", books: [] },
+		{ id: "a102", name: "Ram", books: [] },
+		{ id: "a103", name: "John", books: [] }
 	],
 	books: [
 		{ id: "101", title: "Programming Scala", price: 12.34, authors: [], inStock: true},
@@ -17,6 +17,10 @@ let init = () => {
 	booksList[0].authors = [authors[0], authors[1]];
 	booksList[1].authors = [authors[2], authors[1]];
 	booksList[2].authors = [authors[1], authors[2]];
+	
+	authors[0].books = [booksList[0]];
+	authors[1].books = [booksList[0], booksList[1], booksList[2]]
+	authors[2].books = [booksList[1], booksList[2]];
 }
 
 let resolvers = {
