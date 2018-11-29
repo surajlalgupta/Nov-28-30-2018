@@ -11,14 +11,17 @@ let db = {
 	]
 }
 
+let init = () => {
+	let booksList = db.books;
+	let authors = db.authors;
+	booksList[0].authors = [authors[0], authors[1]];
+	booksList[1].authors = [authors[2], authors[1]];
+	booksList[2].authors = [authors[1], authors[2]];
+}
+
 let resolvers = {
 	books: () => {
-		let booksList = db.books;
-		let authors = db.authors;
-		booksList[0].authors = [authors[0], authors[1]]
-		booksList[1].authors = [authors[2], authors[1]]
-		booksList[2].authors = [authors[1], authors[2]]
-		return booksList;
+		return db.books;
 	},
 	book: (args) => {
 		let id = args.id;
@@ -27,5 +30,5 @@ let resolvers = {
 	}
 	
 }
-
+init();
 module.exports = resolvers;
