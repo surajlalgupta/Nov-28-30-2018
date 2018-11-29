@@ -43,7 +43,28 @@
 * Install express, graphql, express-graphql, cors
 
 
+### Fragments
 
+```javascript
+{
+  expensive: costliestBooks(price: 15) {
+   ...bookFields
+  },
+  
+  all: books {
+    ...bookFields
+  }
+  
+  authors {
+    name
+  }
+}
+fragment bookFields on Book {
+  title, price, authors {
+    name
+  }
+}
+```
 
 
 
