@@ -5,9 +5,9 @@ let db = {
 		{ id: "a103", name: "John" }
 	],
 	books: [
-		{ id: "101", title: "Programming Scala", price: 12.34, authors: []},
-		{ id: "102", title: "Thinking in Java", price: 10.25, authors: []  },
-		{ id: "103", title: "Agile Rails", price: 20.25, authors: []  }
+		{ id: "101", title: "Programming Scala", price: 12.34, authors: [], inStock: true},
+		{ id: "102", title: "Thinking in Java", price: 10.25, authors: [], inStock: false  },
+		{ id: "103", title: "Agile Rails", price: 20.25, authors: [], inStock: true  }
 	]
 }
 
@@ -23,12 +23,23 @@ let resolvers = {
 	books: () => {
 		return db.books;
 	},
-	book: (args) => {
-		let id = args.id;
-		let book = db.books.find(it => it.id === id);
-		return book;
+	book: ({id}) => {
+		if(id) {
+			return db.books.find(it => it.id === id);
+		}
+	},
+	bookByTitle: ({title}) => {
+		if(title) {
+			return db.books.find(it => it.title === title);
+		}
+	},
+	booksInStock: () => {
+		return db.books.filter(it => it.inStock);
+	},
+	authors: () => db.authors,
+	costliestBooks: ({price}) => {
+		return db.books.filter(it => it.price > price);
 	}
-	
 }
 init();
 module.exports = resolvers;

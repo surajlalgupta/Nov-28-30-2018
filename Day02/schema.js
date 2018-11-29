@@ -1,18 +1,24 @@
 let schema = `
 	type Author {
 		id: ID!,
-		name: String!
+		name: String!,
+		books: [Book]!
 	}
 	type Book {
 		id: ID!,
 		title: String,
 		price: Float,
-		authors: [Author]!
+		authors: [Author]!,
+		inStock: Boolean
 	}
 	
 	type Query {
 		books: [Book],
-		book(id: ID): Book
+		book(id: ID ): Book,
+		booksInStock: [Book],
+		authors: [Author],
+		bookByTitle(title: String): Book,
+		costliestBooks(price: Float): [Book]
 	}
 	`;
 
