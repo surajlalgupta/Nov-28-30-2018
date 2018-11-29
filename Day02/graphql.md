@@ -66,6 +66,25 @@ fragment bookFields on Book {
 }
 ```
 
+### Variables
+
+```javascript
+  query findBook($bookId: ID, $title: String) {
+    bookById: book(id: $bookId) {
+    	title, price
+  	}
+    bookByTitle(title: $title) {
+      id, price
+    }
+  }
+  
+  //Variables
+  {
+    "bookId": "101",
+    "title" : "Agile Rails"
+  }
+```
+
 
 
 
