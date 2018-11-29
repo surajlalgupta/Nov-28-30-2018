@@ -13,7 +13,8 @@ let schema = `
 	}
 	
 	type Mutation {
-		addBook(id: ID, title: String, price: Float, authors: [String]): Book
+		addBook(id: ID, title: String, price: Float, authors: [String]): Book,
+		deleteBook(title: String): Boolean
 	}
 	
 	type Query {

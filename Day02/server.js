@@ -15,7 +15,7 @@ app.use("/graphql", cors(), graphqlHTTP({
 }))
 
 app.get("/", (req, res) => {
-	res.end("Hello GraphQL")
+	res.sendFile("index.html", { root: __dirname});
 });
 
 app.listen(4000);

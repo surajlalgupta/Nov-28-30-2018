@@ -1,0 +1,31 @@
+<html>
+	<head>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+		<script>
+			let fetchBooks = () => {
+				console.log("Fetching books");
+				axios.post("/graphql", {
+					query: `{ 
+						books { 
+							id, title, price 
+						}
+					}`
+				}).then(response => processResponse(response.data.data));
+			}
+			let processResponse = ({books}) => {
+				let ul = "<ul>";
+				books.forEach(book => {
+					let li = `<li>${book.title} (${book.price})</li>`;
+					ul += li;
+				});
+				ul += "</ul>";
+				document.getElementById("books").innerHTML = ul;
+			}
+		</script>	
+	</head>	
+	<body>
+		<button onclick="fetchBooks()">Fetch Books</button>
+		<div id="books">
+		</div>	
+	</body>	
+</html>

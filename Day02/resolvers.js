@@ -24,7 +24,13 @@ let init = () => {
 }
 
 let resolvers = {
-	
+	deleteBook: ({title}) => {
+		db.authors.forEach(author => {
+			author.books = author.books.filter(it => it.title !== title);	
+		});
+		db.books = db.books.filter(it => it.title !== title);
+		return true;
+	},
 	addBook: ({id, title, price, authors }) => {
 		let book = { id, title, price };
 		db.books.push(book);
