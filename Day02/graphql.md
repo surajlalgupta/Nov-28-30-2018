@@ -87,6 +87,17 @@ fragment bookFields on Book {
 
 
 
+### Mutation
+
+```javascript
+	mutation {
+	  addBook(id: "106", title: "Inferno", price: 111.23, authors: ["Mary"]) {
+	    id, title, price, authors {
+	      name
+	    }
+	  }
+	}
+```
 
 
 

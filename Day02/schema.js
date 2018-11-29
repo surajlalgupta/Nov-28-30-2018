@@ -12,6 +12,10 @@ let schema = `
 		inStock: Boolean
 	}
 	
+	type Mutation {
+		addBook(id: ID, title: String, price: Float, authors: [String]): Book
+	}
+	
 	type Query {
 		books: [Book],
 		book(id: ID ): Book,

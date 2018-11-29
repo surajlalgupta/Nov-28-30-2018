@@ -24,6 +24,27 @@ let init = () => {
 }
 
 let resolvers = {
+	
+	addBook: ({id, title, price, authors }) => {
+		let book = { id, title, price };
+		db.books.push(book);
+		book.authors = [];
+		authors.forEach(author => {
+			let existingAuthor = db.authors.find(it => it.name === author);
+			if(existingAuthor) {
+				existingAuthor.books.push(book);
+				book.authors.push(existingAuthor);
+			}
+			else {
+				let authorInstance = { id: `a${id}`, name: author }
+				authorInstance.books = [book]
+				book.authors.push(authorInstance);
+				db.authors.push(authorInstance);		
+			}
+		});
+		
+		return book;
+	},
 	books: () => {
 		return db.books;
 	},
