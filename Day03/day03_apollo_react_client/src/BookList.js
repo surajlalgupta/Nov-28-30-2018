@@ -28,13 +28,13 @@ class BookList extends Component {
   render() {
 	  if(this.state.idOfTheBookToBeFetched === '') {
 	      return (
-	        <Query query={BOOKS_QUERY}>
-	  		{ ({loading, error, data}) => {
+	        <Query query={BOOKS_QUERY} pollInterval={1500000}>
+	  		{ ({loading, error, data, refetch}) => {
 	  			if(loading) return <p>Loading books</p>;
 	  			if(error) return <h4>Error loading books</h4>;
 	  			if(data) {
 	  				return (<div>
-						<button onClick={this.reload.bind(this)}>Reload</button><br/>
+						<button onClick={() => refetch()}>Reload</button><br/>
 						{
 							data.books.map(book => <p onClick={this.bookClicked.bind(this, book.id)} key={book.id}>{book.title}, {book.price}</p>)
 						}
