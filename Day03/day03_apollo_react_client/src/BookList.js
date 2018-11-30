@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
-
+import Book from './Book';
 
 
 class BookList extends Component {
@@ -43,9 +43,7 @@ class BookList extends Component {
 					let {book} = data;
 	  				return (<div>
 						<button onClick={this.showBooksList.bind(this)}>Show books list</button>
-						<h4>{book.title}, {book.price}, {book.inStock ? 'yes' : 'no'}</h4>
-						<h5>Authors</h5>
-						{book.authors.map(author => <p key={author.id}>{author.name}</p>)}
+						<Book book = {book}/>
 						</div>);
 	  			}
 	  		}}	
