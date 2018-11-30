@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import gql from 'graphql-tag';
-import { Query } from 'react-apollo';
+import { Query, refetch } from 'react-apollo';
 import Book from './Book';
 
 
@@ -20,6 +20,11 @@ class BookList extends Component {
   showBooksList() {
 	  this.setState({idOfTheBookToBeFetched: ''});
   }	
+  
+  reload() {
+	  refetch();
+  }
+  
   render() {
 	  if(this.state.idOfTheBookToBeFetched === '') {
 	      return (
@@ -28,7 +33,12 @@ class BookList extends Component {
 	  			if(loading) return <p>Loading books</p>;
 	  			if(error) return <h4>Error loading books</h4>;
 	  			if(data) {
-	  				return data.books.map(book => <p onClick={this.bookClicked.bind(this, book.id)} key={book.id}>{book.title}, {book.price}</p>);
+	  				return (<div>
+						<button onClick={this.reload.bind(this)}>Reload</button><br/>
+						{
+							data.books.map(book => <p onClick={this.bookClicked.bind(this, book.id)} key={book.id}>{book.title}, {book.price}</p>)
+						}
+					</div>);
 	  			}
 	  		}}	
 	  	  </Query>
