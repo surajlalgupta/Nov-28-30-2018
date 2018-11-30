@@ -1,0 +1,50 @@
+	type BookConnection {
+	    edges: [BookEdge],
+	    pageInfo: PageInfo!
+	  }
+	  type BookEdge {
+	    cursor: String!,
+	    node: Book!
+	  }
+	  type PageInfo {
+	    hasNextPage: Boolean!,
+	    hasPreviousPage: Boolean!,
+		endCursor: String!,
+		startCursor: String!
+	  }
+	
+	input BookInput{
+		id: ID!,
+		title: String!,
+		price: Float!,
+		authors: [String]!
+	}
+	input Page{
+		number: Int,
+		size: Int
+	}
+	type Author{
+		id: ID!,
+		name: String!
+	}
+	type Book{
+		id: ID!,
+		title: String!,
+		price: Float,
+		authors: [Author]!
+	}
+	type BookList{
+		totalCount: Int!,
+		hasNextPage: Boolean!,
+		hasPreviousPage: Boolean!,
+		items: [Book]!
+	}
+	type Query{
+		allBooks(first:Int!,after:String): BookConnection!,
+		bookList(page:Page!): BookList!, 
+		books: [Book]!,
+		authors: [Author]!
+	}
+	type Mutation{
+		createBook(book:BookInput):String
+	}
