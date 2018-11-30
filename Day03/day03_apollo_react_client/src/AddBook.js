@@ -8,7 +8,14 @@ class AddBook extends Component {
 	  super(props);
   }	
   render() {
-	  return <Mutation mutation={ADD_BOOK_MUTATION}>
+	  return <Mutation mutation={ADD_BOOK_MUTATION} 
+	  update={(cache, { data: { addBook } }) => {
+        const { books } = cache.readQuery({ query: GET_BOOKS_QUERY });
+        cache.writeQuery({
+          query: GET_BOOKS_QUERY,
+          data: { books: books.concat([addBook]) }
+        });
+      }}>
 		  {(addBook, { data }) => (
         <div>
           <form
@@ -29,10 +36,16 @@ class AddBook extends Component {
   }
 }
 
+const GET_BOOKS_QUERY = gql`{
+	books {
+		id, title, price, inStock, authors { id, name }
+	}
+}`;
+
 const ADD_BOOK_MUTATION = gql`
 	mutation addBook($id: ID, $title: String, $price: Float, $authors: [String]) {
   	  	addBook(id: $id, title:$title, price: $price, authors: $authors) {
-			id, title, price, authors {name}    
+			id, title, price, authors {id, name, books}    
   		}
 }`;
 

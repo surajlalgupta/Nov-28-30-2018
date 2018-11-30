@@ -55,7 +55,11 @@ class BookList extends Component {
 
 const BOOKS_QUERY = gql`{
 	books {
-		id, title, price
+		id, title, price, inStock, 
+		authors { 
+			id, 
+			name
+		}
 	}
 }`;
 
