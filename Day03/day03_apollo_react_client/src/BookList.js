@@ -8,20 +8,20 @@ class BookList extends Component {
   constructor(props) {
 	  super(props);
 	  this.state = {
-		  bookToBeFetched: ''
+		  idOfTheBookToBeFetched: ''
 	  }		
   }	
   bookClicked(id) {
 	this.setState({
-		bookToBeFetched: id
+		idOfTheBookToBeFetched: id
 	})	
   }
   
   showBooksList() {
-	  this.setState({bookToBeFetched: ''});
+	  this.setState({idOfTheBookToBeFetched: ''});
   }	
   render() {
-	  if(this.state.bookToBeFetched === '') {
+	  if(this.state.idOfTheBookToBeFetched === '') {
 	      return (
 	        <Query query={BOOKS_QUERY}>
 	  		{ ({loading, error, data}) => {
@@ -35,7 +35,7 @@ class BookList extends Component {
 	      );	
 	  }
 	  else {
-	  	return (<Query query={BOOK_DETAILS_QUERY} variables={{id: this.state.bookToBeFetched}}>
+	  	return (<Query query={BOOK_DETAILS_QUERY} variables={{id: this.state.idOfTheBookToBeFetched}}>
 	  		{ ({loading, error, data}) => {
 	  			if(loading) return <p>Loading book details</p>;
 	  			if(error) return <h4>Error loading book details</h4>;
